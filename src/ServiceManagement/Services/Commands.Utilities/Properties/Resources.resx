@@ -1542,4 +1542,10 @@ use and privacy statement at &lt;url&gt; and (c) agree to sharing my contact inf
   <data name="SchedulerInvalidBasicAuthRequest" xml:space="preserve">
     <value>A valid value for Username and Password parameters are required for Http scheduler jobs with Basic authentication type.</value>
   </data>
+  <data name="RemoveDocumentDbDatabaseConfirmation" xml:space="preserve">
+    <value>Delete DocumentDb Database '{0}'</value>
+  </data>
+  <data name="RemovingDocumentDbDatabaseMessage" xml:space="preserve">
+    <value>Deleting DocumentDb Database</value>
+  </data>
 </root>

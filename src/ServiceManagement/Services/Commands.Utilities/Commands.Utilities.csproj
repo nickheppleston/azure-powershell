@@ -69,6 +69,9 @@
     <Reference Include="Microsoft.Azure.Common.NetFramework">
       <HintPath>..\..\..\packages\Microsoft.Azure.Common.2.1.0\lib\net45\Microsoft.Azure.Common.NetFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client">
+      <HintPath>..\..\..\packages\Microsoft.Azure.DocumentDB.1.1.0\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.ResourceManager, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Microsoft.Azure.Management.Resources.2.18.0-preview\lib\net40\Microsoft.Azure.ResourceManager.dll</HintPath>
@@ -241,6 +244,8 @@
     <Compile Include="Common\VisualStudioProjectPathInfo.cs" />
     <Compile Include="Common\WebRoleInfo.cs" />
     <Compile Include="Common\WorkerRoleInfo.cs" />
+    <Compile Include="DocumentDb\DocumentDbClientExtensions.cs" />
+    <Compile Include="DocumentDb\IDocumentDbClientExtensions.cs" />
     <Compile Include="MediaServices\IMediaServicesClient.cs" />
     <Compile Include="MediaServices\MediaServicesClient.cs" />
     <Compile Include="MediaServices\MediaServicesUriElements.cs" />
@@ -526,6 +531,7 @@
     <Content Include="Azure.psd1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="PostBuild.ps1" />
     <None Include="Resources\Scaffolding\General\WorkerRole\startup.cmd">
