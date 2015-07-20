@@ -20,19 +20,21 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
             _documentDbClient = _documentDbClient ?? new DocumentClient(GetServiceEndpointUri(serviceEndpoint), authKey);
         }
 
-        public List<Database> GetDatabases()
+        public List<ExtendedDocumentDbDatabase> GetDatabases()
         {
-            return (_documentDbClient.CreateDatabaseQuery().AsEnumerable<Database>().ToList<Database>());
+            return (_documentDbClient.CreateDatabaseQuery().AsEnumerable<Database>().Select(db => new ExtendedDocumentDbDatabase(db)).ToList<ExtendedDocumentDbDatabase>());
         }
 
-        public Database GetDatabase(string id)
+        public ExtendedDocumentDbDatabase GetDatabase(string id)
         {
-            return (_documentDbClient.CreateDatabaseQuery().Where(d => d.Id.Equals(id)).AsEnumerable<Database>().FirstOrDefault());
+            return (_documentDbClient.CreateDatabaseQuery().Where(d => d.Id.Equals(id)).AsEnumerable<Database>().Select(db => new ExtendedDocumentDbDatabase(db)).FirstOrDefault());
         }
 
-        public async Task<Database> CreateDatabaseAsync(string id)
+        public async Task<ExtendedDocumentDbDatabase> CreateDatabaseAsync(string id)
         {
-            return (await _documentDbClient.CreateDatabaseAsync(new Database() { Id = id }));
+            var documentDbDatabase = await _documentDbClient.CreateDatabaseAsync(new Database() { Id = id });
+
+            return (new ExtendedDocumentDbDatabase(documentDbDatabase));
         }
 
         public async Task DeleteDatabaseAsync(string databaseLink)
@@ -40,7 +42,7 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
             await _documentDbClient.DeleteDatabaseAsync(databaseLink);
         }
 
-#region Private Methods
+        #region Private Methods
 
         private static Uri GetServiceEndpointUri(string serviceEndpoint)
         {
@@ -54,7 +56,7 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
             }
         }
 
-#endregion 
+        #endregion 
 
     }
 }

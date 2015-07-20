@@ -9,9 +9,9 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
 {
     public interface IDocumentDbClientExtensions
     {
-        List<Database> GetDatabases();
-        Database GetDatabase(string id);
-        Task<Database> CreateDatabaseAsync(string id);
+        List<ExtendedDocumentDbDatabase> GetDatabases();
+        ExtendedDocumentDbDatabase GetDatabase(string id);
+        Task<ExtendedDocumentDbDatabase> CreateDatabaseAsync(string id);
         Task DeleteDatabaseAsync(string databaseLink);
     }
 }

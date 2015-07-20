@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
     /// <summary>
     /// Gets a DocumentDb Database/s
     /// </summary>
-    [Cmdlet(VerbsCommon.New, "AzureDocumentDbDatabase"), OutputType(typeof(List<ExtendedServiceBusNamespace>), typeof(ExtendedServiceBusNamespace))]
+    [Cmdlet(VerbsCommon.New, "AzureDocumentDbDatabase"), OutputType(typeof(List<ExtendedDocumentDbDatabase>), typeof(ExtendedDocumentDbDatabase))]
     public class NewAzureDocumentDbDatabaseCommand : AzurePSCmdlet
     {
         internal IDocumentDbClientExtensions DocumentDbClient { get; set; }
@@ -62,7 +62,10 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
             }
             catch (AggregateException aggregateException)
             {
-                throw aggregateException.InnerException;
+                aggregateException.Handle((ex) =>
+                {
+                    throw new Exception(String.Format("Error executing the command: {0}", ex.Message));
+                });
             }
         }
     }

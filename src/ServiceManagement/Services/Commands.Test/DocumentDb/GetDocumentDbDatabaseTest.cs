@@ -17,13 +17,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using Microsoft.WindowsAzure.Commands.ScenarioTest;
-using Xunit;
 using Microsoft.WindowsAzure.Commands.Common;
 using Microsoft.WindowsAzure.Commands.Common.Test.Mocks;
 using Microsoft.WindowsAzure.Commands.DocumentDb;
 using Microsoft.WindowsAzure.Commands.Test.Utilities.Common;
 using Microsoft.WindowsAzure.Commands.Utilities.Properties;
 using Microsoft.WindowsAzure.Commands.Utilities.DocumentDb;
+using Xunit;
 using Moq;
 using Microsoft.Azure.Common.Authentication;
 using Microsoft.Azure.Documents;
@@ -57,7 +57,7 @@ namespace Microsoft.WindowsAzure.Commands.Test.DocumentDb
         {
             // Setup
             cmdlet.Id = "test-db";
-            var expected = new Database { Id = cmdlet.Id };
+            var expected = new ExtendedDocumentDbDatabase { Id = cmdlet.Id };
             documentDbClientExtensionsMock.Setup(m => m.GetDatabase(cmdlet.Id)).Returns(expected);
 
             // Test
@@ -73,7 +73,7 @@ namespace Microsoft.WindowsAzure.Commands.Test.DocumentDb
         public void GetDocumentDbDatabasesSuccessful()
         {
             // Setup
-            var expected = new List<Database>() { new Database { Id = "test-db-1" }, new Database { Id = "test-db-2" } };
+            var expected = new List<ExtendedDocumentDbDatabase>() { new ExtendedDocumentDbDatabase { Id = "test-db-1" }, new ExtendedDocumentDbDatabase { Id = "test-db-2" } };
             documentDbClientExtensionsMock.Setup(m => m.GetDatabases()).Returns(expected);
             cmdlet.Id = String.Empty;
 
