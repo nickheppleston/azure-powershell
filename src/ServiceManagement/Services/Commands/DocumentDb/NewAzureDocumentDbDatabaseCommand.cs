@@ -17,13 +17,12 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
-using Microsoft.WindowsAzure.Commands.Utilities.ServiceBus;
 using Microsoft.WindowsAzure.Commands.Utilities.DocumentDb;
 
 namespace Microsoft.WindowsAzure.Commands.DocumentDb
 {
     /// <summary>
-    /// Gets a DocumentDb Database/s
+    /// Creates a new DocumentDb Database
     /// </summary>
     [Cmdlet(VerbsCommon.New, "AzureDocumentDbDatabase"), OutputType(typeof(List<ExtendedDocumentDbDatabase>), typeof(ExtendedDocumentDbDatabase))]
     public class NewAzureDocumentDbDatabaseCommand : AzurePSCmdlet
@@ -46,7 +45,17 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
         {
             DocumentDbClient = DocumentDbClient ?? new DocumentDbClientExtensions(ServiceEndpoint, AuthKey);
 
-            RunAsync().Wait();
+            try
+            {
+                RunAsync().Wait();
+            }
+            catch (AggregateException aggregateException)
+            {
+                aggregateException.Handle((ex) =>
+                {
+                    throw new Exception(ex.Message);
+                });
+            }
         }
 
         private async Task RunAsync()

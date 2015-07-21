@@ -13,18 +13,15 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Management.Automation;
-using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
-using Microsoft.WindowsAzure.Commands.Utilities.ServiceBus;
 using Microsoft.WindowsAzure.Commands.Utilities.DocumentDb;
 using Microsoft.WindowsAzure.Commands.Utilities.Properties;
 
 namespace Microsoft.WindowsAzure.Commands.DocumentDb
 {
     /// <summary>
-    /// Gets a DocumentDb Database/s
+    /// Deletes a DocumentDb Database
     /// </summary>
     [Cmdlet(VerbsCommon.Remove, "AzureDocumentDbDatabase", SupportsShouldProcess = true), OutputType(typeof(bool))]
     public class RemoveAzureDocumentDbDatabaseCommand : AzurePSCmdlet
@@ -43,7 +40,7 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
         [Parameter(Position = 3, Mandatory = false)]
         public SwitchParameter PassThru { get; set; }
 
-        [Parameter(Position = 4, HelpMessage = "Do not confirm the removal of the namespace")]
+        [Parameter(Position = 4, HelpMessage = "Do not confirm the removal of the DocumentDb Database")]
         public SwitchParameter Force { get; set; }
 
         /// <summary>
@@ -56,22 +53,46 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
             var database = DocumentDbClient.GetDatabase(Id);
 
             if (database == null)
-                throw new Exception(String.Format("Could not locate DocumentDb Database with the Id '{0}'", Id));
-
-            ConfirmAction(
-                Force.IsPresent,
-                String.Format(Resources.RemoveDocumentDbDatabaseConfirmation, Id),
-                String.Format(Resources.RemovingDocumentDbDatabaseMessage),
-                Id,
-                async () =>
+            {
+                WriteWarning(String.Format("Could not locate DocumentDb Database with the Id '{0}'", Id));
+            }
+            else
+            {
+                try
                 {
-                    await DocumentDbClient.DeleteDatabaseAsync(database.SelfLink);
+                    ConfirmAction(
+                        Force.IsPresent,
+                        String.Format(Resources.RemoveDocumentDbDatabaseConfirmation, Id),
+                        String.Format(Resources.RemovingDocumentDbDatabaseMessage),
+                        Id,
+                        async () =>
+                        {
+                            try
+                            {
+                                await DocumentDbClient.DeleteDatabaseAsync(database.SelfLink);
 
-                    if (PassThru)
+                                if (PassThru)
+                                {
+                                    WriteObject(true);
+                                }
+                            }
+                            catch (AggregateException aggregateException)
+                            {
+                                aggregateException.Handle((ex) =>
+                                {
+                                    throw new Exception(String.Format("Error executing the command: {0}", ex.Message));
+                                });
+                            }
+                        });
+                }
+                catch (AggregateException aggregateException)
+                {
+                    aggregateException.Handle((ex) =>
                     {
-                        WriteObject(true);
-                    }
-                });
+                        throw new Exception(ex.Message);
+                    });
+                }
+            }
         }
     }
 }

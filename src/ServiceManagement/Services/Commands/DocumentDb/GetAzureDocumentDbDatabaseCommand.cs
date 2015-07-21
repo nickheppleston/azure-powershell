@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
-using Microsoft.WindowsAzure.Commands.Utilities.ServiceBus;
 using Microsoft.WindowsAzure.Commands.Utilities.DocumentDb;
 
 namespace Microsoft.WindowsAzure.Commands.DocumentDb
@@ -56,9 +55,9 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
                     var database = DocumentDbClient.GetDatabase(Id);
 
                     if (database == null)
-                        throw new Exception(String.Format("Could not locate DocumentDb Database with the Id '{0}'", Id));
-
-                    WriteObject(database);
+                        WriteWarning(String.Format("Could not locate DocumentDb Database with the Id '{0}'", Id));
+                    else
+                        WriteObject(database);
                 }
                 catch (AggregateException aggregateException)
                 {
