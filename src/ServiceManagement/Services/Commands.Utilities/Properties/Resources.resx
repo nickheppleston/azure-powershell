@@ -1548,4 +1548,10 @@ use and privacy statement at &lt;url&gt; and (c) agree to sharing my contact inf
   <data name="RemovingDocumentDbDatabaseMessage" xml:space="preserve">
     <value>Deleting DocumentDb Database</value>
   </data>
+  <data name="RemoveDocumentDbCollectionConfirmation" xml:space="preserve">
+    <value>Delete DocumentDb Collection '{0}'</value>
+  </data>
+  <data name="RemovingDocumentDbCollectionMessage" xml:space="preserve">
+    <value>Deleting DocumentDb Collection</value>
+  </data>
 </root>

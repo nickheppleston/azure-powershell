@@ -13,5 +13,10 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
         ExtendedDocumentDbDatabase GetDatabase(string id);
         Task<ExtendedDocumentDbDatabase> CreateDatabaseAsync(string id);
         Task DeleteDatabaseAsync(string databaseLink);
+        
+        List<ExtendedDocumentDbCollection> GetDocumentCollections(string collectionsLink);
+        ExtendedDocumentDbCollection GetDocumentCollection(string collectionsLink, string id);
+        Task<ExtendedDocumentDbCollection> CreateDocumentCollectionsAsync(string databaseLink, string id);
+        Task DeleteDocumentCollectionsAsync(string selfLink);
     }
 }

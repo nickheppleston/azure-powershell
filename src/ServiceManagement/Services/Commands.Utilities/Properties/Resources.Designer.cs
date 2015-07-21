@@ -2829,6 +2829,15 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete DocumentDb Collection &apos;{0}&apos;.
+        /// </summary>
+        public static string RemoveDocumentDbCollectionConfirmation {
+            get {
+                return ResourceManager.GetString("RemoveDocumentDbCollectionConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete DocumentDb Database &apos;{0}&apos;.
         /// </summary>
         public static string RemoveDocumentDbDatabaseConfirmation {
@@ -3077,6 +3086,15 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Properties {
         public static string RemoveWebsiteWarning {
             get {
                 return ResourceManager.GetString("RemoveWebsiteWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting DocumentDb Collection.
+        /// </summary>
+        public static string RemovingDocumentDbCollectionMessage {
+            get {
+                return ResourceManager.GetString("RemovingDocumentDbCollectionMessage", resourceCulture);
             }
         }
         

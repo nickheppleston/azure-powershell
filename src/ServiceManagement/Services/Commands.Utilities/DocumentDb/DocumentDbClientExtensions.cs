@@ -20,6 +20,8 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
             _documentDbClient = _documentDbClient ?? new DocumentClient(GetServiceEndpointUri(serviceEndpoint), authKey);
         }
 
+        #region DocumentDb Databases
+
         public List<ExtendedDocumentDbDatabase> GetDatabases()
         {
             return (_documentDbClient.CreateDatabaseQuery().AsEnumerable<Database>().Select(db => new ExtendedDocumentDbDatabase(db)).ToList<ExtendedDocumentDbDatabase>());
@@ -41,6 +43,34 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
         {
             await _documentDbClient.DeleteDatabaseAsync(databaseLink);
         }
+
+        #endregion
+
+        #region DocumentDb Collections
+
+        public List<ExtendedDocumentDbCollection> GetDocumentCollections(string collectionsLink)
+        {
+            return (_documentDbClient.CreateDocumentCollectionQuery(collectionsLink).AsEnumerable<DocumentCollection>().Select(col => new ExtendedDocumentDbCollection(col)).ToList<ExtendedDocumentDbCollection>());
+        }
+
+        public ExtendedDocumentDbCollection GetDocumentCollection(string collectionsLink, string id)
+        {
+            return (_documentDbClient.CreateDocumentCollectionQuery(collectionsLink).Where(d => d.Id.Equals(id)).AsEnumerable<DocumentCollection>().Select(col => new ExtendedDocumentDbCollection(col)).FirstOrDefault());
+        }
+
+        public async Task<ExtendedDocumentDbCollection> CreateDocumentCollectionsAsync(string databaseLink, string id)
+        {
+            var documentDbDocumentCollection = await _documentDbClient.CreateDocumentCollectionAsync(databaseLink, new DocumentCollection() { Id = id });
+
+            return (new ExtendedDocumentDbCollection(documentDbDocumentCollection));
+        }
+
+        public async Task DeleteDocumentCollectionsAsync(string selfLink)
+        {
+            await _documentDbClient.DeleteDocumentCollectionAsync(selfLink);
+        }
+
+        #endregion
 
         #region Private Methods
 

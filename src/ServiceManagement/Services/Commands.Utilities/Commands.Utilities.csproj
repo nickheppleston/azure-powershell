@@ -246,6 +246,7 @@
     <Compile Include="Common\WebRoleInfo.cs" />
     <Compile Include="Common\WorkerRoleInfo.cs" />
     <Compile Include="DocumentDb\DocumentDbClientExtensions.cs" />
+    <Compile Include="DocumentDb\ExtendedDocumentDbCollection.cs" />
     <Compile Include="DocumentDb\ExtendedDocumentDbDatabase.cs" />
     <Compile Include="DocumentDb\IDocumentDbClientExtensions.cs" />
     <Compile Include="MediaServices\IMediaServicesClient.cs" />

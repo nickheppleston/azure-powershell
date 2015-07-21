@@ -211,6 +211,9 @@
     <Compile Include="CloudService\StartAzureService.cs" />
     <Compile Include="CloudService\StopAzureService.cs" />
     <Compile Include="CloudService\TestAzureName.cs" />
+    <Compile Include="DocumentDb\NewAzureDocumentDbCollectionCommand.cs" />
+    <Compile Include="DocumentDb\GetAzureDocumentDbCollectionCommand.cs" />
+    <Compile Include="DocumentDb\RemoveAzureDocumentDbCollectionCommand.cs" />
     <Compile Include="DocumentDb\RemoveAzureDocumentDbDatabaseCommand.cs" />
     <Compile Include="DocumentDb\GetAzureDocumentDbDatabaseCommand.cs" />
     <Compile Include="DocumentDb\NewAzureDocumentDbDatabaseCommand.cs" />
