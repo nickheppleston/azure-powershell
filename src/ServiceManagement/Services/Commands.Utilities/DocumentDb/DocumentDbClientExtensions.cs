@@ -39,9 +39,9 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.DocumentDb
             return (new ExtendedDocumentDbDatabase(documentDbDatabase));
         }
 
-        public async Task DeleteDatabaseAsync(string databaseLink)
+        public async Task DeleteDatabaseAsync(string selfLink)
         {
-            await _documentDbClient.DeleteDatabaseAsync(databaseLink);
+            await _documentDbClient.DeleteDatabaseAsync(selfLink);
         }
 
         #endregion
