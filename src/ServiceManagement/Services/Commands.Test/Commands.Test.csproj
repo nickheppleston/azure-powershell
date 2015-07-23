@@ -217,7 +217,7 @@
     <Compile Include="CloudService\Utilities\ServiceSettingsTests.cs" />
     <Compile Include="CloudService\Utilities\StorageEmulatorTests.cs" />
     <Compile Include="Common\DeltaMapperTests.cs" />
-    <Compile Include="DocumentDb\GetDocumentDbDatabaseTest.cs" />
+    <Compile Include="DocumentDb\GetDocumentDbDatabaseCommandTests.cs" />
     <Compile Include="Environment\AddAzureEnvironmentTests.cs" />
     <Compile Include="Environment\RemoveAzureEnvironmentTests.cs" />
     <Compile Include="Environment\SetAzureEnvironmentTests.cs" />

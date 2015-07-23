@@ -28,13 +28,13 @@ using Moq;
 
 namespace Microsoft.WindowsAzure.Commands.Test.DocumentDb
 {
-    public class GetDocumentDbDatabaseTest : TestBase
+    public class GetDocumentDbDatabaseCommandTests : TestBase
     {
         Mock<IDocumentDbClientExtensions> documentDbClientExtensionsMock;
         MockCommandRuntime mockCommandRuntime;
         GetAzureDocumentDbDatabaseCommand cmdlet;
 
-        public GetDocumentDbDatabaseTest()
+        public GetDocumentDbDatabaseCommandTests()
         {
             new FileSystemHelper(this).CreateAzureSdkDirectoryAndImportPublishSettings();
             documentDbClientExtensionsMock = new Mock<IDocumentDbClientExtensions>();
