@@ -50,22 +50,12 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
             }
             else
             {
-                try
-                {
-                    var database = DocumentDbClient.GetDatabase(Id);
+                var database = DocumentDbClient.GetDatabase(Id);
 
-                    if (database == null)
-                        WriteWarning(String.Format("Could not locate DocumentDb Database with the Id '{0}'", Id));
-                    else
-                        WriteObject(database);
-                }
-                catch (AggregateException aggregateException)
-                {
-                    aggregateException.Handle((ex) =>
-                        {
-                            throw new Exception(String.Format("Error executing the command: {0}", ex.Message));
-                        });
-                }
+                if (database == null)
+                    WriteWarning(String.Format("Could not locate DocumentDb Database with the Id '{0}'", Id));
+                else
+                    WriteObject(database);
             }
         }
     }

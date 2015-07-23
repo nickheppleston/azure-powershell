@@ -47,28 +47,18 @@ namespace Microsoft.WindowsAzure.Commands.DocumentDb
         {
             DocumentDbClient = DocumentDbClient ?? new DocumentDbClientExtensions(ServiceEndpoint, AuthKey);
 
-            try
+            if (String.IsNullOrEmpty(Id))
             {
-                if (String.IsNullOrEmpty(Id))
-                {
-                    WriteObject(DocumentDbClient.GetDocumentCollections(CollectionsLink), true);
-                }
-                else
-                {
-                    var collection = DocumentDbClient.GetDocumentCollection(CollectionsLink, Id);
-
-                    if (collection == null)
-                        WriteWarning(String.Format("Could not locate DocumentDb Document Collection with the CollectionsLink '{0}' and Id '{1}'", CollectionsLink, Id));
-                    else
-                        WriteObject(collection);
-                }
+                WriteObject(DocumentDbClient.GetDocumentCollections(CollectionsLink), true);
             }
-            catch (AggregateException aggregateException)
+            else
             {
-                aggregateException.Handle((ex) =>
-                {
-                    throw new Exception(String.Format("Error executing the command: {0}", ex.Message));
-                });
+                var collection = DocumentDbClient.GetDocumentCollection(CollectionsLink, Id);
+
+                if (collection == null)
+                    WriteWarning(String.Format("Could not locate DocumentDb Document Collection with the CollectionsLink '{0}' and Id '{1}'", CollectionsLink, Id));
+                else
+                    WriteObject(collection);
             }
         }
     }
